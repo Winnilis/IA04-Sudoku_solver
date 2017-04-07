@@ -3,8 +3,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Cell {
-	int value = 0;
-	List<Integer> possibleValues;
+	public int value = 0;
+	public List<Integer> possibleValues;
+	public int index;
 	
 	public Cell(){
 		value = 0;
@@ -15,4 +16,6 @@ public class Cell {
 	
 	public List<Integer> getPossibleValues(){return possibleValues;}
 	public void setPossibleValues(List<Integer> newVal){possibleValues = newVal;}
+	
+	//get index
 }

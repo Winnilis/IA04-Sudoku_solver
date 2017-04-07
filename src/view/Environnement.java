@@ -1,29 +1,58 @@
 package view;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import jade.core.Agent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
+import jade.core.behaviours.Behaviour;
+import jade.lang.acl.ACLMessage;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.ContainerController;
 import model.Cell;
+import model.Sudoku;
 
 public class Environnement extends Agent{
-	Cell[][] grid;
+	Sudoku sudoku;
 	Boolean complete;
 	
 	protected void setup(){
 		System.out.println("Environnement started");
+		Object[] args = getArguments();
+		String f = (String) args[0];
+		addBehaviour(new SimulatorReceiverBehavior((String) args[0]));
+		sudoku = new Sudoku();
+		sudoku.parse(f);
+		try {
+			sudoku.printSudoku();
+		} catch(Error e) {
+			e.printStackTrace();
+		}
 	}
-
-	public Environnement(){
-		grid = new Cell[9][9];
-		complete = false;
-		printGrid();
-	}
+	
+	class SimulatorReceiverBehavior extends Behaviour {
+		String sudokuFile; 
+		
+		public SimulatorReceiverBehavior(String f){
+			this.sudokuFile = f;
+		}
+		public void action(){
+			ACLMessage msg = receive();
+			if(msg != null){
+				String content = String.valueOf(msg.getContent());
+				System.out.println(content);
+				launchAnalysis();
+			} else {
+				block();
+			}
+		}
+		public boolean done(){
+			return false;
+		}
+}
 	
 	public static void launchAgents(){
 		String MAIN_PROPERTIES_FILE = "prop";
@@ -62,21 +91,8 @@ public class Environnement extends Agent{
 		//send notification to Simulator to stop simulation
 	}
 	
-	public Cell getCell(int x, int y){
-		return grid[x][y];
-	}
-	public void setCell(int x, int y, int value, List<Integer> possibleValues){
-		grid[x][y].setValue(value);
-		grid[x][y].setPossibleValues(possibleValues);
-	}
-	
-	public void printGrid(){
-		for(int i=0; i<9; i++){
-			for(int j=0; j<9; j++){
-				System.out.print(grid[i][j].getValue() +" ");
-			}
-			System.out.println("\n");
-		}
+	public void launchAnalysis(){
+		//
 	}
 
 }
