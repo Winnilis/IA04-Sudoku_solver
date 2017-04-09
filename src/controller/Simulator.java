@@ -11,13 +11,12 @@ public class Simulator extends Agent{
 	protected void setup(){
 		isOver = false;
 		
-		System.out.println("Simulator started");
+//		System.out.println("Simulator started");
 		
-		addBehaviour(new TickerBehaviour(this, 2000) {
+		addBehaviour(new TickerBehaviour(this, 4000) {
 		      protected void onTick() {
 //		    	  System.out.println("Sending INFORM message to Environnement");
 		    	  ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-		    	  msg.setContent("Launch analysis");
 		    	  msg.addReceiver(getAID("Environnement"));
 		    	  send(msg);
 		      } 
@@ -29,11 +28,11 @@ public class Simulator extends Agent{
 		public FailureHandlerBehaviour(){}
 		
 		public void action(){
-			System.out.println("Simulator : Receiving message ...");
+//			System.out.println("Simulator : Receiving message ...");
 			ACLMessage msg = receive();
 			if(msg != null){
 				String content = String.valueOf(msg.getContent());
-				System.out.println(content);
+//				System.out.println(content);
 			} else {
 				block();
 			}

@@ -1,1 +1,1 @@
-http://172.25.25.15:7778/acc
+http://DSIPRETETU02:7778/acc

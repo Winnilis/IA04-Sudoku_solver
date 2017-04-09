@@ -1,21 +1,64 @@
 package model;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 public class Cell {
-	public int value = 0;
-	public List<Integer> possibleValues;
-	public int index;
+	private int value;
+	private ArrayList<Integer> possibleValues;
+	private int l;
+	private int c;
 	
 	public Cell(){
 		value = 0;
-		possibleValues.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9));
+		possibleValues = new ArrayList<Integer>();
+	}
+	public Cell(int val){
+		value = val;
+		possibleValues = new ArrayList<Integer>();
+		for(int i=1; i<=9; i++){
+			possibleValues.add(i);
+		}
+	}
+	public Cell(int val, int line, int column){
+		value = val;
+		l = line;
+		c = column;
+		possibleValues = new ArrayList<Integer>();
+		for(int i=1; i<=9; i++){
+			possibleValues.add(i);
+		}
 	}
 	public int getValue(){return value;}
-	public void setValue(int newVal){value = newVal;}
+	public void setValue(int newVal){
+		value = newVal;
+	}
 	
 	public List<Integer> getPossibleValues(){return possibleValues;}
-	public void setPossibleValues(List<Integer> newVal){possibleValues = newVal;}
+	public void setPossibleValues(ArrayList<Integer> newVal){possibleValues = newVal;}
+	
+	public String serialize(){
+		return new Gson().toJson(this);
+	}
+	
+	public String toString(){
+		return "value: "+value+ " possibleValues: " + possibleValues;
+	}
+	
+	public int getL() {
+		return l;
+	}
+	public void setL(int l) {
+		this.l = l;
+	}
+	public int getC() {
+		return c;
+	}
+	public void setC(int c) {
+		this.c = c;
+	}
 	
 	//get index
 }

@@ -2,13 +2,19 @@ package model;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sudoku {
-	Cell[][] grid;
+	private Cell[][] grid;
 	
 	public Sudoku(){
-		grid = new Cell[9][9];
+		this.setGrid(new Cell[9][9]);
+		for(int i=0; i<9; i++){
+			for(int j=0; j<9; j++){
+				getGrid()[i][j] = new Cell(0, i, j);
+			}
+		}
 	}
 
 	public void parse(String file){
@@ -18,8 +24,7 @@ public class Sudoku {
 			for(int i=0; i<9; i++){
 				for(int j=0; j<9; j++){
 					readInt = scan.nextInt();
-					System.out.println(readInt);
-					grid[i][j].setValue(readInt);
+					getGrid()[i][j].setValue(readInt);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -30,9 +35,28 @@ public class Sudoku {
 	public void printSudoku(){
 		for(int i=0; i<9; i++){
 			for(int j=0; j<9; j++){
-				System.out.print(grid[i][j].value +" ");
+				System.out.print(getGrid()[i][j].getValue() +" ");
 			}
-			System.out.println("");
+			System.out.print("\n");
 		}
+	}
+
+	public Cell[][] getGrid() {
+		return grid;
+	}
+
+	public void setGrid(Cell[][] grid) {
+		this.grid = grid;
+	}
+	
+	public Cell getCell(int line, int column){
+		return grid[line][column];
+	}
+	public void setCell(Cell newCell){
+		this.grid[newCell.getL()][newCell.getC()] = newCell;
+	}
+	public void setCell(int line, int column, int v, ArrayList<Integer> pv){
+		this.grid[line][column].setValue(v);
+		this.grid[line][column].setPossibleValues(pv);
 	}
 }
