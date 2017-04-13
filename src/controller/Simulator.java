@@ -2,6 +2,7 @@ package controller;
 
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -11,17 +12,15 @@ public class Simulator extends Agent{
 	protected void setup(){
 		isOver = false;
 		
-//		System.out.println("Simulator started");
-		
 		addBehaviour(new TickerBehaviour(this, 4000) {
 		      protected void onTick() {
-//		    	  System.out.println("Sending INFORM message to Environnement");
 		    	  ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 		    	  msg.addReceiver(getAID("Environnement"));
 		    	  send(msg);
-		      } 
+		      }
 		    });
 		addBehaviour(new FailureHandlerBehaviour());
+		addBehaviour(new DoneBehaviour());
 	}
 	
 	class FailureHandlerBehaviour extends Behaviour {
@@ -41,5 +40,22 @@ public class Simulator extends Agent{
 			return false;
 		}
 	}	
-	//wen receive Environnement notification that grid is complete, enf the program and display the final grid
+	
+	class DoneBehaviour extends Behaviour {
+		public void action(){
+			ACLMessage msg = receive();
+			if(msg != null){
+				String senderName = msg.getSender().getLocalName();
+				if(senderName.equals("Environnement") && msg.getContent().equals("over")){
+					System.out.println("PROGRAM IS OVER -----------------------------------------------------------------");
+					myAgent.doDelete(); //end of program
+				}
+			} else {
+				block();
+			}
+		}
+		public boolean done(){
+			return false;
+		}
+	}
 }

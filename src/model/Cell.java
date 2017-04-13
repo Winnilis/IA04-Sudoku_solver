@@ -1,6 +1,5 @@
 package model;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -18,9 +17,9 @@ public class Cell {
 	public Cell(int val){
 		value = val;
 		possibleValues = new ArrayList<Integer>();
-		for(int i=1; i<=9; i++){
-			possibleValues.add(i);
-		}
+//		for(int i=1; i<=9; i++){
+//			possibleValues.add(i);
+//		}
 	}
 	public Cell(int val, int line, int column){
 		value = val;
@@ -33,10 +32,11 @@ public class Cell {
 	}
 	public int getValue(){return value;}
 	public void setValue(int newVal){
-		value = newVal;
+		this.value = newVal;
+		this.possibleValues = new ArrayList<Integer>();
 	}
 	
-	public List<Integer> getPossibleValues(){return possibleValues;}
+	public ArrayList<Integer> getPossibleValues(){return possibleValues;}
 	public void setPossibleValues(ArrayList<Integer> newVal){possibleValues = newVal;}
 	
 	public String serialize(){
@@ -44,7 +44,7 @@ public class Cell {
 	}
 	
 	public String toString(){
-		return "value: "+value+ " possibleValues: " + possibleValues;
+		return value + " " + possibleValues.toString();
 	}
 	
 	public int getL() {
@@ -59,6 +59,4 @@ public class Cell {
 	public void setC(int c) {
 		this.c = c;
 	}
-	
-	//get index
 }

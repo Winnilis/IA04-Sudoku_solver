@@ -40,6 +40,16 @@ public class Group {
 	}
 	
 	public String toString(){
-		return cells.toString();
+		return "Group " + index + " : " + cells.toString();
+	}
+	
+	public ArrayList<Integer> mapValues(){
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		for(int i=0; i<9; i++){
+			if(cells.get(i).getValue() != 0){
+				result.add(cells.get(i).getValue());
+			}
+		}
+		return result;
 	}
 }
