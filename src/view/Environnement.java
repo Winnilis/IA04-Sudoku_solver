@@ -43,7 +43,8 @@ public class Environnement extends Agent{
 	
 	class test extends Behaviour {
 		public void action(){
-			
+			System.out.println(sudoku.getLineGroup(0).occurs(5));
+			System.out.println(sudoku.getLineGroup(0).occurs(1));
 		}
 		@Override
 		public boolean done() {
@@ -159,7 +160,6 @@ public class Environnement extends Agent{
 						sudoku.printSudoku();
 						sudoku.printAll();
 						isGridComplete();
-						
 						}
 					}
 //						for(int i=0; i<9; i++){

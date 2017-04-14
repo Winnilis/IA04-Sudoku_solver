@@ -32,7 +32,7 @@ public class Analysis extends Agent{
 					Gson gson = new Gson();
 					Group g = gson.fromJson(content, Group.class);
 
-					//update all PossibleValues lists
+					//update all PossibleValues
 					ArrayList<Integer> usedValues = g.mapValues();
 					ArrayList<Integer> newPossibleValues;
 					for(int i =0; i<9; i++){ //for each cell in group
@@ -54,35 +54,22 @@ public class Analysis extends Agent{
 						}
 					}
 					
-//					//algo 3 : Une valeur ne se trouvant que dans une seule liste de possibles est la valeur de cette cellule
-//					int testedValue;
-//					boolean flag;
-//					ArrayList<Integer> alreadyTestedValues = new ArrayList<Integer>();
-//					for(int i=0; i<9; i++){
-//						currentCell = g.getCells().get(i);
-//						if(currentCell.getValue() == 0){
-//							for(int j = 0; j<currentCell.getPossibleValues().size(); j++){
-//								testedValue = currentCell.getPossibleValues().get(j);
-//								
-//								if(alreadyTestedValues.indexOf(testedValue) != -1){
-//									alreadyTestedValues.add(testedValue);
-//									flag = false;
-//									for(int k=i; k<9; k++){
-//										if(g.getCells().get(k).getPossibleValues().indexOf(testedValue) != -1){
-//											flag = true;
-//										}
-//									}
-//									if(!flag){//if tested value occurs only once in all possibleValues lists
-//										currentCell.setValue(testedValue);
-//										currentCell.setPossibleValues(null);
-//									}
-//								}
-//							}
-//						}
-//					}
-////		System.out.println(g);
-//					
+					//algo 3 : Une valeur ne se trouvant que dans une seule liste de possibles est la valeur de cette cellule
+					for(int i=0; i<9; i++){
+						if(g.occurrencesIndexes(i).size() == 1){
+							g.getCells().get(g.occurrencesIndexes(i).get(0)).setValue(i);
+							g.getCells().get(g.occurrencesIndexes(i).get(0)).setPossibleValues(new ArrayList<Integer>());
+						}
+					}
+										
 //					//algo4 : Si seulement deux cellules contiennent les deux mêmes valeurs possibles alors les possibles des autres cellules ne peuvent contenir ces valeurs
+					
+					
+					
+					
+					
+					
+					
 //					ArrayList<Integer> tmp =  new ArrayList<Integer>();
 //					for(int i=0; i<9; i++){
 //						if(g.getCells().get(i).getValue()== 0 && g.getCells().get(i).getPossibleValues().size() == 2){

@@ -62,7 +62,8 @@ public class Sudoku {
 	public void printAll(){
 		for(int i=0; i<9; i++){
 			for(int j=0; j<9; j++){
-				System.out.print(grid[i][j].getValue() + "" + grid[i][j].getPossibleValues() + "" + grid[i][j].getPossibleValues().size() + " ");
+				System.out.print(grid[i][j].getValue() + "" + grid[i][j].getPossibleValues() + " ");
+//						+ "" + grid[i][j].getPossibleValues().size() + " ");
 			}
 			System.out.print("\n");
 		}

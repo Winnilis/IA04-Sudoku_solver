@@ -23,7 +23,7 @@ public class Main {
 			ContainerController cc = rt.createAgentContainer(p);
 			AgentController as = cc.createNewAgent("Simulator", "controller.Simulator", null);
 			as.start();
-			AgentController ae = cc.createNewAgent("Environnement", "view.Environnement", new Object[]{"sudoku3.txt"});
+			AgentController ae = cc.createNewAgent("Environnement", "view.Environnement", new Object[]{"sudoku1.txt"});
 			ae.start();
 			
 			AgentController aa;

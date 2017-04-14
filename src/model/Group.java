@@ -52,4 +52,19 @@ public class Group {
 		}
 		return result;
 	}
+	
+	public ArrayList<Integer> mapPossibleValues(){
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		return result;
+	}
+
+	public ArrayList<Integer> occurrencesIndexes(int i){
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		for(int j=0; j<9; j++){
+			if(cells.get(j).getPossibleValues().contains(i)){
+				indexes.add(j);
+			}
+		}
+		return indexes;
+	}
 }
